@@ -1,0 +1,26 @@
+version: '3.0'
+
+services:
+  postgres:
+    image: postgres:12.3
+    ports:
+        - 5434:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+        - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  redis:
+    image: redis:7.0.12
+    restart: always
+    ports:
+      - "6379:6379"
+#    environment:
+#      - "REDIS_ARGS=--appendonly yes"
+#    volumes:
+#      - ./data:/data
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
